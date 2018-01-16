@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, ModalController} from 'ionic-angular';
 import { Form } from "@angular/forms";
+import { SetLocationPage } from "../set-location/set-location";
+import { Location } from "../../models/location";
 
-/**
- * Generated class for the AddPlacePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -16,7 +12,12 @@ import { Form } from "@angular/forms";
 })
 export class AddPlacePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  location: Location = {
+    lat: 26.37357,
+    lng: -80.102348
+  };
+
+  constructor(private modalCtrl: ModalController) {
   }
 
   onLocate() {
@@ -24,7 +25,8 @@ export class AddPlacePage {
   }
 
   onOpenMap() {
-
+    const modal = this.modalCtrl.create(SetLocationPage, {location: this.location});
+    modal.present();
   }
 
   onTakePhoto() {
